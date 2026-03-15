@@ -1,15 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Регистрация</title>
+
 </head>
 <body>
-<form action="/users/avatar" method="post" enctype="multipart/form-data">
-    <label id="image">Image:
-        <input name="image" type="file" alt="photo">
-    </label>
-    <button type="submit">GO</button>
+    <h2>Регистрация</h2>
+
+<form action="/users/registration"  method="post" enctype="multipart/form-data">
+    <label for="login">Логин:
+        <input type="text" id="login" name="login" th:value="${user.getLogin()}" required>
+    </label><br>
+    <label for="password">Пароль:
+        <input type="password" id="password" name="password" th:value="${user.getPassword()}" required>
+    </label><br>
+    <label for="username">Имя пользователя:
+        <input type="text" id="username" name="username" th:value="${user.getUsername()}" required>
+    </label><br>
+    <label for="avatar">Аватар:
+        <input type="file" id="avatar" name="avatar" accept="image/*" required>
+    </label><br>
+
+    <button type="submit">Зарегистрироваться</button> <br>
 </form>
+<h1 th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></h1> <br>
+
 </body>
 </html>

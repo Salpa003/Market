@@ -13,4 +13,4 @@ spring:
       ddl-auto: validate
 app:
   image:
-    bucket: 'C:\Users\rusik\Market\avatars'
+    bucket: .\avatars

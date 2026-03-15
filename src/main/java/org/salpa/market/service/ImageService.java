@@ -9,12 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,9 +29,17 @@ public class ImageService {
     public void upload(String imageName, InputStream content) {
         Path fullPath = Path.of(bucket, imageName);
 
-        try (content; OutputStream os = Files.newOutputStream(fullPath, CREATE, TRUNCATE_EXISTING)) {
-            content.transferTo(os);  // ← эффективно для видео и больших изображений
+        Path parent = fullPath.getParent();
+        if (!Files.exists(parent)) {
+            System.out.println("Create parent");
+            Files.createDirectories(parent);
         }
+
+        try (content; OutputStream os = Files.newOutputStream(fullPath, CREATE, TRUNCATE_EXISTING)) {
+           // content.transferTo(os);  // ← эффективно для видео и больших изображений
+           Files.write(fullPath,content.readAllBytes(),CREATE);
+        }
+
     }
 
     @SneakyThrows
