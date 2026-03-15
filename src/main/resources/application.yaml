@@ -11,3 +11,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+app:
+  image:
+    bucket: 'C:\Users\rusik\Market\avatars'

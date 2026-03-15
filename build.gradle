@@ -9,6 +9,10 @@ group = 'org.Salpa'
 version = '0.0.1-SNAPSHOT'
 description = 'Market'
 
+lombok {
+    version = "1.18.30"
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
@@ -23,6 +27,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.postgresql:postgresql'
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
