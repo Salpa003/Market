@@ -4,6 +4,9 @@ import lombok.Value;
 
 @Value
 public class UserReadDto {
+    Long id;
+    String login;
     String username;
-    byte[] avatar;
+    String password;
+    Double amount;
 }

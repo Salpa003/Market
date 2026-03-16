@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username}">User</title>
+</head>
+<body>
+
+<img th:src="@{/api/v1/users/{userId}/avatar(userId=${user.id})}" style="width:100px;height:100px;object-fit:cover;border-radius:50%" alt="User Image">
+<form th:action="@{/users/{userId}(userId=${user.getId()})}" enctype="multipart/form-data" method="post">
+    <label for="avatar">Изменить аватар:
+        <input type="file" id="avatar" name="avatar" accept="image/*">
+    </label><br>
+    <div id="preview" style="margin: 10px 0;">
+        <img id="previewImg" style="max-width: 200px; display: none;">
+    </div>
+    <h1 th:text="|Login: ${user.login}|">Login</h1>
+    <h1 th:text="|Amount: ${user.getAmount()}|">Amount</h1>
+    <label for="password">Пароль:
+        <input type="password" id="password" name="password" th:value="${user.getPassword()}" required>
+    </label><br>
+    <label for="username">Имя пользователя:
+        <input type="text" id="username" name="username" th:value="${user.getUsername()}" required>
+    </label><br>
+    <button type="submit">Изменить</button> <br>
+</form>
+<script>
+    // Превью выбранного изображения
+    document.getElementById('avatar').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const img = document.getElementById('previewImg');
+                img.src = event.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+<a href="/home"><button>Назад</button></a>
+</body>
+</html>

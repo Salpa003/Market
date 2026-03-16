@@ -14,8 +14,11 @@ public class UserReadDtoMapper implements Mapper<User, UserReadDto> {
     @Override
     public UserReadDto map(User user) {
         return new UserReadDto(
+                user.getId(),
+                user.getLogin(),
                 user.getUsername(),
-                imageService.getImage(user.getAvatar()).get()
+                user.getPassword(),
+                user.getAmount()
                 );
     }
 }

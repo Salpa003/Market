@@ -25,6 +25,7 @@ public class ImageService {
 
     @Value("${app.image.bucket}")
     private String bucket;
+
     @SneakyThrows
     public void upload(String imageName, InputStream content) {
         Path fullPath = Path.of(bucket, imageName);
@@ -36,10 +37,18 @@ public class ImageService {
         }
 
         try (content; OutputStream os = Files.newOutputStream(fullPath, CREATE, TRUNCATE_EXISTING)) {
-           // content.transferTo(os);  // ← эффективно для видео и больших изображений
-           Files.write(fullPath,content.readAllBytes(),CREATE);
+            Files.write(fullPath, content.readAllBytes(), CREATE);
         }
 
+    }
+
+    @SneakyThrows
+    public void updateImage(String oldFile, String newFile, InputStream inputStream) {
+        deleteFile(oldFile);
+        Path newPath = Path.of(bucket, newFile);
+        try (inputStream; OutputStream os = Files.newOutputStream(newPath, CREATE, TRUNCATE_EXISTING)) {
+            Files.write(newPath, inputStream.readAllBytes(), CREATE);
+        }
     }
 
     @SneakyThrows
@@ -48,5 +57,10 @@ public class ImageService {
         return Files.exists(path) ? Optional.of(Files.readAllBytes(path)) : Optional.empty();
     }
 
+    @SneakyThrows
+    public void deleteFile(String fileName) {
+        Path path = Path.of(bucket, fileName);
+        Files.deleteIfExists(path);
+    }
 
 }

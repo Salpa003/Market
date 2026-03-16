@@ -1,17 +1,17 @@
 package org.salpa.market.http.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.salpa.market.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
 public class UserRestController {
+    private final UserService userService;
 
     @GetMapping("{id}/avatar")
-    public Byte[] getAvatar(@PathVariable Long id) {
-
-        return null;
+    public byte[] getAvatar(@PathVariable Long id) {
+       return userService.getUserAvatar(id);
     }
 }

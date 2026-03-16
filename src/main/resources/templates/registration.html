@@ -9,7 +9,7 @@
     <h2>Регистрация</h2>
 
 <form action="/users/registration"  method="post" enctype="multipart/form-data">
-    <label for="login">Логин:
+    <label for="login">Логин (нельзя поменять):
         <input type="text" id="login" name="login" th:value="${user.getLogin()}" required>
     </label><br>
     <label for="password">Пароль:
@@ -21,10 +21,29 @@
     <label for="avatar">Аватар:
         <input type="file" id="avatar" name="avatar" accept="image/*" required>
     </label><br>
-
+    <div id="preview" style="margin: 10px 0;">
+        <img id="previewImg" style="max-width: 200px; display: none;">
+    </div>
     <button type="submit">Зарегистрироваться</button> <br>
 </form>
+    <a href="/users/login"><button>Вход</button></a>
 <h1 th:if="${errorMessage}" style="color: red" th:text="${errorMessage}"></h1> <br>
+
+    <script>
+        // Превью выбранного изображения
+        document.getElementById('avatar').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.getElementById('previewImg');
+                    img.src = event.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
 </body>
 </html>
