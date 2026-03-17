@@ -1,7 +1,6 @@
 spring:
   application:
     name: Market
-
   datasource:
     url: "jdbc:postgresql://localhost:5432/market"
     username: postgres
@@ -11,6 +10,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: validate
+
+  liquibase:
+    drop-first: false
 app:
   image:
     bucket: .\avatars

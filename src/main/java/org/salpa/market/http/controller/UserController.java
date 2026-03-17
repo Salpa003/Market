@@ -55,10 +55,7 @@ public class UserController {
             return "registration";
         }
         Long id = userService.saveUser(createDto);
-        Cookie cookie = new Cookie("user",id+"");
-        cookie.setMaxAge(3600);           // 1 час
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
+        Cookie cookie = createUserIdCookie(id);
         response.addCookie(cookie);
         return "redirect:/home";
     }
@@ -92,10 +89,7 @@ public class UserController {
         System.out.println();
         try {
            Long id = userService.loginUser(login,password);
-            Cookie cookie = new Cookie("user",id+"");
-            cookie.setMaxAge(3600);           // 1 час
-            cookie.setPath("/");
-            cookie.setHttpOnly(true);
+            Cookie cookie = createUserIdCookie(id);
             response.addCookie(cookie);
             return "redirect:/home";
         } catch (UserLoginException e) {
@@ -109,5 +103,12 @@ public class UserController {
         }
     }
 
+    private Cookie createUserIdCookie(Long id) {
+        Cookie cookie = new Cookie("user",id+"");
+        cookie.setMaxAge(3600 * 24 * 31 * 12); // 1 год
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        return cookie;
+    }
 
 }

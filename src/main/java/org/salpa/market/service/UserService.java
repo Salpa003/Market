@@ -78,12 +78,14 @@ public class UserService {
         User user = maybeUser.get();
         user.setUsername(updateDto.getUsername());
         user.setPassword(updateDto.getPassword());
-        String fileName =user.getLogin()+getImageFormat(updateDto.getAvatar());
-        try {
-            imageService.updateImage(user.getAvatar(), fileName, updateDto.getAvatar().getInputStream());
-            user.setAvatar(fileName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (!updateDto.getAvatar().isEmpty()) {
+            String fileName = user.getLogin() + getImageFormat(updateDto.getAvatar());
+            try {
+                imageService.updateImage(user.getAvatar(), fileName, updateDto.getAvatar().getInputStream());
+                user.setAvatar(fileName);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         userRepository.save(user);
     }

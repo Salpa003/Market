@@ -6,7 +6,8 @@
 </head>
 <body>
 
-<img th:src="@{/api/v1/users/{userId}/avatar(userId=${user.id})}" style="width:100px;height:100px;object-fit:cover;border-radius:50%" alt="User Image">
+<img th:src="@{/api/v1/users/{userId}/avatar(userId=${user.id})}"
+     style="width:100px;height:100px;object-fit:cover;border-radius:50%" alt="Нет фотографии">
 <form th:action="@{/users/{userId}(userId=${user.getId()})}" enctype="multipart/form-data" method="post">
     <label for="avatar">Изменить аватар:
         <input type="file" id="avatar" name="avatar" accept="image/*">

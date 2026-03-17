@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
 <body>
-
+<a th:href="@{/users/{userId}(userId=${user.id})}" style="position: absolute; right: 10px; top: 10px">
+    <img th:src="@{/api/v1/users/{userId}/avatar(userId=${user.id})}"
+         style="width:100px;height:100px;object-fit:cover;border-radius:50%" alt="Профиль">
+</a>
 </body>
 </html>
