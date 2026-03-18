@@ -41,5 +41,11 @@
     });
 </script>
 <a href="/home"><button>Назад</button></a>
+
+<div th:if="${user.role.name() == 'ADMIN'}">
+    <a href="/admin/updateNews"><button>Изменить новости</button></a>
+<!--    ////-->
+</div>
+
 </body>
 </html>

@@ -10,7 +10,8 @@ CREATE TABLE users.users
     login    VARCHAR(32) UNIQUE,
     password VARCHAR(64),
     amount   DOUBLE PRECISION,
-    avatar   VARCHAR(32)
+    avatar   VARCHAR(32),
+    role VARCHAR(10)
 );
 --changeset salpa:3
 CREATE SCHEMA skin;

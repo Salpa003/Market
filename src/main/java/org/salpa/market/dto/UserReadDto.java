@@ -1,6 +1,7 @@
 package org.salpa.market.dto;
 
 import lombok.Value;
+import org.salpa.market.entity.user.Role;
 
 @Value
 public class UserReadDto {
@@ -9,4 +10,5 @@ public class UserReadDto {
     String username;
     String password;
     Double amount;
+    Role role;
 }

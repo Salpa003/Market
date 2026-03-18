@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.salpa.market.dto.UserCreateDto;
 import org.salpa.market.dto.UserReadDto;
 import org.salpa.market.dto.UserUpdateDto;
-import org.salpa.market.entity.User;
+import org.salpa.market.entity.user.User;
 import org.salpa.market.exception.UserLoginException;
 import org.salpa.market.service.ImageService;
 import org.salpa.market.service.UserService;

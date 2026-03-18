@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.salpa.market.dto.UserCreateDto;
 import org.salpa.market.dto.UserReadDto;
 import org.salpa.market.dto.UserUpdateDto;
-import org.salpa.market.entity.User;
+import org.salpa.market.entity.user.Role;
+import org.salpa.market.entity.user.User;
 import org.salpa.market.exception.UserLoginException;
 import org.salpa.market.mapper.UserReadDtoMapper;
-import org.salpa.market.mapper.UserUpdateDtoMapper;
 import org.salpa.market.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserReadDtoMapper userReadDtoMapper;
-    private final UserUpdateDtoMapper userUpdateDtoMapper;
     private final UserRepository userRepository;
     private final ImageService imageService;
     private final List<Character> symbols = Arrays.asList('.', '/', '\\');
@@ -55,6 +54,7 @@ public class UserService {
                 .login(createDto.getLogin())
                 .password(createDto.getPassword())
                 .username(createDto.getUsername())
+                .role(Role.USER)
                 .amount(0.0)
                 .build();
 

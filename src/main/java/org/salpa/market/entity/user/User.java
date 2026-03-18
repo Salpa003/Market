@@ -1,4 +1,4 @@
-package org.salpa.market.entity;
+package org.salpa.market.entity.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,4 +26,7 @@ public class User {
     private Double amount;
 
     private String avatar;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 }

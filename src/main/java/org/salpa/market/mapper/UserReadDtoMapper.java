@@ -2,7 +2,7 @@ package org.salpa.market.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.salpa.market.dto.UserReadDto;
-import org.salpa.market.entity.User;
+import org.salpa.market.entity.user.User;
 import org.salpa.market.service.ImageService;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,8 @@ public class UserReadDtoMapper implements Mapper<User, UserReadDto> {
                 user.getLogin(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getAmount()
+                user.getAmount(),
+                user.getRole()
                 );
     }
 }
