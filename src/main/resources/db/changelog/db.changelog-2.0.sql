@@ -11,3 +11,9 @@ VALUES ('G22 Carbon', 'G22_Carbon.png','GLOCK22','RARE', (SELECT id FROM skin.co
        ('AKR Carbon','AKR_Carbon.png','AKR','RARE',(SELECT id FROM skin.collection c WHERE c.name='Carbon')),
        ('AKR Dragon','AKR_Dragon.png','AKR','LEGENDARY',(SELECT id FROM skin.collection c WHERE c.name='Dragon')),
        ('AWP Dragon','AWP_Dragon.png','AWP','LEGENDARY',(SELECT id FROM skin.collection c WHERE c.name='Dragon'));
+
+--changeset salpa:3
+INSERT INTO users.news(header, description, image)
+VALUES ('Карбоновыне монстры','Это новая коллекция 2026 года. В неё войдут карбоновые скины.','Carbon.png'),
+       ('Драконы 2026','Изменение старой коллекции драконы. При изменение игроки получат компенсанцию.','Dragon.png');
+

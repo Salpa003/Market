@@ -14,5 +14,8 @@ spring:
   liquibase:
     drop-first: false
 app:
-  image:
-    bucket: .\avatars
+  images:
+    avatars: .\images\avatars
+    collections: .\images\collections
+    skins: .\images\skins
+    news: .\images\news

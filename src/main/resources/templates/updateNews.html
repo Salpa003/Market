@@ -5,6 +5,50 @@
     <title>UpdateNew</title>
 </head>
 <body>
+<a href="/admin/addNews"><button>Добавить</button></a>
+<a href="/home/news"><button>Посмотреть</button></a>
+<div th:if="${news}">
+    <div th:each="n : ${news}">
+        <img th:src="@{/api/v1/home/{newsId}/news(newsId=${n.id})}" alt="Картинка ">
+        <form th:action="@{/admin/{newsId}/updateNews(newsId=${n.id})}" enctype="multipart/form-data" method="post">
+            <label for="image">Изменить Картинку:
+                <input type="file" id="image" name="image" accept="image/*">
+            </label>
+            <div id="preview" style="margin: 10px 0;">
+                <img id="previewImg" style="max-width: 200px; display: none;">
+            </div>
+            <label for="header">Заголовок:
+                <input type="text" name="header" id="header" th:value="${n.header}" style="width: 700px; height: 30px">
+            </label><br>
+            <label for="description">Описание:
+                <input type="text" name="description" id="description" th:value="${n.description}" style="width: 700px; height: 30px">
+            </label><br>
+            <button type="submit">Изменить</button>
+        </form>
+        <a th:href="@{/admin/{newsId}/delete(newsId=${n.id})}"><button>Удалить</button></a><br><br>
+
+        <script>
+            // Превью выбранного изображения
+            document.getElementById('image').addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        const img = document.getElementById('previewImg');
+                        img.src = event.target.result;
+                        img.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+    </div>
+
+</div> <!--if -->
+
+
+
+
 
 </body>
 </html>

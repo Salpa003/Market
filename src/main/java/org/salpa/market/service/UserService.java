@@ -1,13 +1,13 @@
 package org.salpa.market.service;
 
 import lombok.RequiredArgsConstructor;
-import org.salpa.market.dto.UserCreateDto;
-import org.salpa.market.dto.UserReadDto;
-import org.salpa.market.dto.UserUpdateDto;
+import org.salpa.market.dto.user.UserCreateDto;
+import org.salpa.market.dto.user.UserReadDto;
+import org.salpa.market.dto.user.UserUpdateDto;
 import org.salpa.market.entity.user.Role;
 import org.salpa.market.entity.user.User;
 import org.salpa.market.exception.UserLoginException;
-import org.salpa.market.mapper.UserReadDtoMapper;
+import org.salpa.market.mapper.user.UserReadDtoMapper;
 import org.salpa.market.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +42,7 @@ public class UserService {
         if (maybeUser.isEmpty())
             return null;
         User user = maybeUser.get();
-        Optional<byte[]> image = imageService.getImage(user.getAvatar());
+        Optional<byte[]> image = imageService.getAvatar(user.getAvatar());
         if (image.isEmpty())
             return null;
         return image.get();
@@ -59,9 +59,9 @@ public class UserService {
                 .build();
 
         MultipartFile avatar = createDto.getAvatar();
-        String filename = user.getLogin() + getImageFormat(avatar);
+        String filename = user.getLogin() + imageService.getImageFormat(avatar);
         try {
-            imageService.upload(filename, avatar.getInputStream());
+            imageService.uploadAvatar(filename, avatar.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,9 +79,9 @@ public class UserService {
         user.setUsername(updateDto.getUsername());
         user.setPassword(updateDto.getPassword());
         if (!updateDto.getAvatar().isEmpty()) {
-            String fileName = user.getLogin() + getImageFormat(updateDto.getAvatar());
+            String fileName = user.getLogin() + imageService.getImageFormat(updateDto.getAvatar());
             try {
-                imageService.updateImage(user.getAvatar(), fileName, updateDto.getAvatar().getInputStream());
+                imageService.updateAvatar(user.getAvatar(), fileName, updateDto.getAvatar().getInputStream());
                 user.setAvatar(fileName);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -107,6 +107,7 @@ public class UserService {
         return user.getId();
     }
 
+    @Transactional(readOnly = true)
     public void validateLogin(String login) throws UserLoginException {
         User user = userRepository.findUserByLogin(login);
         if (user != null)
@@ -119,20 +120,6 @@ public class UserService {
     }
 
 
-    private String getImageFormat(MultipartFile file) {
-        if (file == null || file.getOriginalFilename() == null) {
-            return null;
-        }
-
-        String fileName = file.getOriginalFilename();
-        int lastDotIndex = fileName.lastIndexOf(".");
-
-        if (lastDotIndex == -1 || lastDotIndex == fileName.length() - 1) {
-            return null;
-        }
-
-        return fileName.substring(lastDotIndex).toLowerCase();
-    }
 
     private boolean containsSymbols(String login) {
         for (char c : login.toCharArray()) {

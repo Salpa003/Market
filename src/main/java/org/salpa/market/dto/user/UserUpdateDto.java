@@ -1,15 +1,11 @@
-package org.salpa.market.dto;
+package org.salpa.market.dto.user;
 
 import lombok.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 @Value
-public class UserCreateDto {
-    String login;
-
-    String password;
-
+public class UserUpdateDto {
     String username;
-
+    String password;
     MultipartFile avatar;
 }

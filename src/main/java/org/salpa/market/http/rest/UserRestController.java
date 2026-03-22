@@ -14,4 +14,6 @@ public class UserRestController {
     public byte[] getAvatar(@PathVariable Long id) {
        return userService.getUserAvatar(id);
     }
+
+
 }

@@ -11,7 +11,7 @@ CREATE TABLE users.users
     password VARCHAR(64),
     amount   DOUBLE PRECISION,
     avatar   VARCHAR(32),
-    role VARCHAR(10)
+    role     VARCHAR(10)
 );
 --changeset salpa:3
 CREATE SCHEMA skin;
@@ -31,4 +31,13 @@ CREATE TABLE skin.skin
     gun           VARCHAR(32),
     rarely        VARCHAR(16),
     collection_id INT REFERENCES skin.collection (id) NOT NULL
+);
+
+--changeset salpa:6
+CREATE TABLE users.news
+(
+    id          SERIAL PRIMARY KEY,
+    header      VARCHAR(32) UNIQUE,
+    description TEXT,
+    image       VARCHAR(16)
 );

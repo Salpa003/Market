@@ -2,16 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
-    <style>
-        .button {
-            width: 350px;
-            height: 70px;
-            background-color: darkgrey;
-            color: darkorange;
-            font-size: medium
-        }
-    </style>
+    <title>News</title>
 </head>
 <body>
 <a th:href="@{/users/{userId}(userId=${user.id})}" style="position: absolute; right: 10px; top: 10px">
@@ -46,6 +37,14 @@
     </button>
 </a>
 
+<div th:if="${news}">
+    <div th:each="n : ${news}">
+        <h1 th:text="${n.header}"> Заголовок</h1>
+        <img th:src="@{/api/v1/home/{newsId}/news(newsId=${n.id})}" alt="Картинка ">
+        <h2 th:text="${n.description}">Описание</h2>
+        <br>
+    </div>
+</div>
 
 </body>
 </html>

@@ -1,8 +1,9 @@
-package org.salpa.market.mapper;
+package org.salpa.market.mapper.user;
 
 import lombok.RequiredArgsConstructor;
-import org.salpa.market.dto.UserReadDto;
+import org.salpa.market.dto.user.UserReadDto;
 import org.salpa.market.entity.user.User;
+import org.salpa.market.mapper.Mapper;
 import org.salpa.market.service.ImageService;
 import org.springframework.stereotype.Component;
 

@@ -3,9 +3,9 @@ package org.salpa.market.http.controller;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.salpa.market.dto.UserCreateDto;
-import org.salpa.market.dto.UserReadDto;
-import org.salpa.market.dto.UserUpdateDto;
+import org.salpa.market.dto.user.UserCreateDto;
+import org.salpa.market.dto.user.UserReadDto;
+import org.salpa.market.dto.user.UserUpdateDto;
 import org.salpa.market.entity.user.User;
 import org.salpa.market.exception.UserLoginException;
 import org.salpa.market.service.ImageService;
@@ -13,9 +13,6 @@ import org.salpa.market.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/users")
@@ -27,16 +24,6 @@ public class UserController {
     @GetMapping
     public String getAllUsers() {
         return "registration";
-    }
-
-    @PostMapping("/avatar")
-    public void p(@RequestParam("image") MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
-        try {
-            imageService.upload(file.getOriginalFilename(), file.getInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @GetMapping("/registration")
